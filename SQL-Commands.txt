@@ -1,0 +1,51 @@
+CREATE TABLE user_table (
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_username VARCHAR(50) NOT NULL,
+    user_password VARCHAR(50) NOT NULL,
+    user_level INTEGER NOT NULL
+);
+
+CREATE TABLE flight_table (
+    flight_id INTEGER PRIMARY KEY,
+    aircraft_callsign varchar(20) NOT NULL,
+    pilot1_id INTEGER NOT NULL,
+    pilot2_id INTEGER NOT NULL,
+    departure_airport char(30) NOT NULL,
+    arrival_airport char(30) NOT NULL,
+    estimated_departure_datetime DATETIME NOT NULL,
+    estimated_arrival_datetime DATETIME NOT NULL,
+    flight_duration varchar(20) NOT NULL,
+    passenger_numbers INTEGER NOT NULL,
+    FOREIGN KEY (aircraft_callsign) REFERENCES aircraft_table(aircraft_callsign),
+    FOREIGN KEY (pilot1_id) REFERENCES pilot_table(pilot_id),
+    FOREIGN KEY (pilot2_id) REFERENCES pilot_table(pilot_id),
+    FOREIGN KEY (departure_airport) REFERENCES airport_table(name),
+    FOREIGN KEY (arrival_airport) REFERENCES airport_table(name)
+);
+
+CREATE TABLE aircraft_table (
+    aircraft_id INTEGER PRIMARY KEY,
+    aircraft_callsign varchar(20) NOT NULL,
+    model TEXT NOT NULL, 
+    class char(20) NOT NULL,
+    range INTEGER NOT NULL,
+    capacity INTEGER NOT NULL
+);
+
+CREATE TABLE pilot_table (
+    pilot_id INTEGER PRIMARY KEY,
+    forename char(20) NOT NULL,
+    surname char(20) NOT NULL,
+    date_of_birth DATE NOT NULL,
+    nationality char(40) NOT NULL,
+    total_flight_hours INTEGER NOT NULL,
+    notes varchar(250)
+);
+
+CREATE TABLE airport_table (
+    airport_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    city TEXT NOT NULL,
+    country TEXT NOT NULL,
+    status TEXT NOT NULL
+);
